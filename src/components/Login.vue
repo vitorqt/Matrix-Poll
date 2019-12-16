@@ -8,9 +8,9 @@
         Crie da maneira mais simples possível suas enquetes em menos de 1 minuto. Use em seu trabalho, em sua escola, em
         uma palestra ou até mesmo para surpreender seu público.
       </p>
-      <a to="/main">
+      <router-link to="/main">
         <button class="btn btn-block btn-default" type="submit">Criar Poll</button>
-      </a>
+      </router-link>
       <h2>Acessar Matrix Poll</h2>
       <br />
       <form action>
@@ -31,9 +31,7 @@
         />
         <button class="btn btn-block btn-default btn--purple" type="submit">Entrar</button>
       </form>
-      <a class="forgot__password" href="#">
-        Esqueci minha senha
-      </a>
+      <a class="forgot__password" href="#">Esqueci minha senha</a>
     </div>
   </div>
 </template>
@@ -44,7 +42,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import '../assets/scss/variables';
+@import "../assets/scss/variables";
 
 .content {
   display: flex;
@@ -61,6 +59,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
     h1 {
       color: $primary-color;
+      font-size: 40px;
       text-transform: uppercase;
       letter-spacing: $letter-spacing;
 
@@ -84,7 +83,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
     input {
       background-color: $input-black;
       border: 1px solid $text-grey;
-      border-radius: 5px; 
+      border-radius: 5px;
+      color:  #FFF;
       opacity: 0.5;
       font-size: 16px;
       margin: 0 auto 20px;

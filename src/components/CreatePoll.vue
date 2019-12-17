@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <router-link to="">
+      <router-link to="/vote">
         <button class="btn-create">Create your poll</button>
       </router-link>
     </div>

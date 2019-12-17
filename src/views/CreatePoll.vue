@@ -1,9 +1,10 @@
 <template>
   <div class="main">
-    <Header />
+    <Navbar />
     <div class="container">
       <h1>
-        Create a<span> Poll</span>
+        Create a
+        <span>Poll</span>
       </h1>
       <label class="mg-top">Poll question</label>
       <input class="big-input" type="text" placeholder="Type your question here..." />
@@ -31,13 +32,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import Navbar from '@/components/Navbar.vue';
+
+export default {
+  name: "main",
+  components: {
+    Navbar
+  }
+};
 </script>
 
-
 <style scoped lang="scss">
-@import "../assets/scss/variables"; 
-
+@import "../assets/scss/variables";
 .container {
   position: absolute;
   width: 100%;
@@ -50,13 +56,17 @@ import { Component, Prop, Vue } from "vue-property-decorator";
     color: $primary-color;
     letter-spacing: $letter-spacing-less;
 
-    span { color: $secundary-color; }
+    span {
+      color: $secundary-color;
+    }
   }
 
-  label { color: $secundary-color; font-size: 18px; }
+  label {
+    color: $secundary-color;
+    font-size: 18px;
+  }
 
   input {
-    margin: 10px 0 25px 0;  
     display: block;
     background-color: $input-grey;
     color: #000000;
@@ -66,16 +76,23 @@ import { Component, Prop, Vue } from "vue-property-decorator";
     width: 100%;
     max-width: 450px;
   }
-  input:focus, select:focus {
+  input:focus,
+  select:focus {
     border: 1px solid $primary-color;
-    opacity: .5;
+    opacity: 0.5;
     outline: 0;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
   }
-  .big-input { padding: 20px; }
-  .small-input { padding: 10px 20px; }
-  input::placeholder { color: #000; }
+  .big-input {
+    padding: 20px;
+  }
+  .small-input {
+    padding: 10px 20px;
+  }
+  input::placeholder {
+    color: #000;
+  }
 
   .mg-top {
     margin-top: 20px;
@@ -95,8 +112,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
     border: none;
     height: 50px;
     width: 200px;
-    color: #E4E0EE;
-    transition: all .5s;
+    color: #e4e0ee;
+    transition: all 0.5s;
     cursor: pointer;
   }
 
@@ -110,7 +127,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
   }
   .btn-create {
     font-size: 18px;
-    background-color: #50AE6E;
+    background-color: #50ae6e;
   }
   .btn-create:hover {
     background-color: $primary-color-hover;
@@ -126,7 +143,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
     .container-options {
       display: block;
     }
-  
+
     button {
       margin-top: 10px;
     }

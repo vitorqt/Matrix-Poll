@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="logo">
-      Wu<span>nari</span>
+      <router-link to='/'>Wu<span>nari</span></router-link>
     </div>
     <nav>
       <li>
@@ -19,6 +19,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+
+@Component({ name: 'navbar' })
+export default class Navbar extends Vue {
+
+}
 </script>
 
 <style scoped lang="scss">
@@ -32,6 +37,10 @@ header {
   border-style: solid;
   border-bottom-color: $text-grey;
 
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
   .logo {
     font-size: 25px;
     text-transform: uppercase;

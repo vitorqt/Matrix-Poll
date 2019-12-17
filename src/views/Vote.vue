@@ -1,8 +1,8 @@
 <template>
   <div class="vote">
-    <Sidebar />
+    <Navbar />
     <button class="container">
-      <h2>Qual sua banda favorita ?</h2>
+      <h1>Qual sua banda favorita ?</h1>
       <span>Asked by Wuzi 24 minutes ago</span>
 
       <div class="answer mg-top">
@@ -27,13 +27,14 @@
   </div>
 </template>
 
-<script>
-import Sidebar from "@/components/Navbar";
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+import Navbar from '@/components/Navbar.vue';
 
 export default {
-  name: "vote", 
+  name: "navbar",
   components: {
-    Sidebar
+    Navbar
   }
 };
 </script>
@@ -50,7 +51,7 @@ export default {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -40%);
-  h2 {
+  h1 {
     letter-spacing: $letter-spacing-less;
     color: $primary-color;
   }
@@ -62,8 +63,8 @@ export default {
     border: none;
     height: 50px;
     width: 200px;
-    color: #E4E0EE;
-    transition: all .5s;
+    color: #e4e0ee;
+    transition: all 0.5s;
     cursor: pointer;
   }
 
@@ -77,7 +78,7 @@ export default {
   }
   .btn-create {
     font-size: 18px;
-    background-color: #50AE6E;
+    background-color: #50ae6e;
   }
   .btn-create:hover {
     background-color: $primary-color-hover;
@@ -142,7 +143,7 @@ export default {
 @media (max-width: 425px) {
   .container {
     button.button-center {
-      transform: translateX(92px) translateY(40px);
+      transform: translateX(12px) translateY(40px);
     }
   }
 }

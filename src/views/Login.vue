@@ -9,7 +9,7 @@
         Crie da maneira mais simples possível suas enquetes em menos de 1 minuto. Use em seu trabalho, em sua escola, em
         uma palestra ou até mesmo para surpreender seu público.
       </p>
-      <router-link to="/create">
+      <router-link to="/create" style="text-decoration: none;">
         <button class="btn btn-block btn-default" type="submit">Criar Poll</button>
       </router-link>
       <h2>Acessar Matrix Poll</h2>
@@ -56,23 +56,23 @@
               <form>
                 <div class="row">
                   <div class="col">
-                    <input type="text" class="form-control" placeholder="Nome" />
+                    <input type="text" class="form-control" placeholder="Nome" v-model="user.name" />
                   </div>
                 </div>
                 <br />
                 <div class="row">
                   <div class="col">
-                    <input type="text" class="form-control" placeholder="E-mail" />
+                    <input type="text" class="form-control" placeholder="E-mail" v-model="user.email" />
                   </div>
                   <div class="col">
-                    <input type="text" class="form-control" placeholder="Senha" />
+                    <input type="password" class="form-control" placeholder="Senha" v-model="user.password" />
                   </div>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-exit" data-dismiss="modal">Fechar</button>
-              <button type="button" class="btn btn-create">Cadastrar</button>
+              <button type="button" class="btn btn-create" v-on:click="registerUser">Cadastrar</button>
             </div>
           </div>
         </div>
@@ -83,11 +83,26 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import axios from "axios";
+import Swal from "sweetalert2";
 
-export default {
-  name: "login",
-  components: {}
-};
+@Component({ name: "login" })
+export default class Login extends Vue {
+  private user = {
+    email: "",
+    password: "",
+    name: ""
+  };
+
+  registerUser() {
+    axios.post("https://wunari-easypoll.herokuapp.com/v1/register", this.user)
+      .then(() => {
+        Swal.fire('Sucesso', 'Usuário cadastrado com sucesso', 'success');
+      }).catch((error) => {
+        Swal.fire('Erro!', 'Não foi possível cadastrar o usuário', 'error')
+      })
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -129,7 +144,8 @@ export default {
       font-weight: normal;
     }
 
-    input:focus, select:focus {
+    input:focus,
+    select:focus {
       border-color: $primary-color !important;
       outline: 0;
       -webkit-box-shadow: none !important;
@@ -171,12 +187,12 @@ export default {
     }
 
     .btn-create {
-       background-color: $primary-color;
-       color: #FFF;
+      background-color: $primary-color;
+      color: #fff;
     }
     .btn-exit {
       background-color: $secundary-color;
-      color: #FFF;
+      color: #fff;
     }
 
     .btn-default:hover {

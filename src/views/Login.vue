@@ -95,7 +95,7 @@ export default class Login extends Vue {
   };
 
   registerUser() {
-    axios.post("https://wunari-easypoll.herokuapp.com/v1/register", this.user)
+    axios.post(`${process.env.VUE_APP_BASE_URL}/register`, this.user)
       .then(() => {
         Swal.fire('Sucesso', 'Usuário cadastrado com sucesso', 'success');
       }).catch((error) => {

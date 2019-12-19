@@ -15,7 +15,7 @@
       <h2>Acessar Matrix Poll</h2>
       <br />
       <form action>
-        <input
+        <input v-model="email"
           class="form-control input"
           type="email"
           name="email"
@@ -23,14 +23,14 @@
           autocomplete="off"
           required
         />
-        <input
+        <input v-model="password"
           class="form-control input"
           type="password"
           name="password"
           placeholder="Digite sua senha"
           required
         />
-        <button class="btn btn-block btn-default btn--purple" type="submit">Entrar</button>
+        <button class="btn btn-block btn-default btn--purple" type="button" v-on:click="loginAttempt">Entrar</button>
       </form>
       <a class="create__user" data-toggle="modal" data-target="#exampleModalCenter" href>Cadastre-se</a>
       <a class="forgot__password" href="#">Esqueci minha senha</a>
@@ -85,9 +85,17 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import axios from "axios";
 import Swal from "sweetalert2";
+import router from '../router';
+
 
 @Component({ name: "login" })
 export default class Login extends Vue {
+  //login
+  public email: string = "";
+  public password: string = "";
+  public token: string ="";
+
+  // register a user
   private user = {
     email: "",
     password: "",
@@ -95,12 +103,57 @@ export default class Login extends Vue {
   };
 
   registerUser() {
+    Swal.fire({
+			showCancelButton: false,
+			showConfirmButton: false,
+			allowOutsideClick: false,
+			onBeforeOpen: () => {
+				Swal.showLoading();
+			}
+    });
+    
     axios.post(`${process.env.VUE_APP_BASE_URL}/register`, this.user)
-      .then(() => {
+      .then((response) => {
         Swal.fire('Sucesso', 'Usuário cadastrado com sucesso', 'success');
+        
+        console.log(response.data)
+       
       }).catch((error) => {
-        Swal.fire('Erro!', 'Não foi possível cadastrar o usuário', 'error')
+          Swal.fire('Erro!', 'Não foi possível cadastrar o usuário', 'error')
       })
+  }
+
+  loginAttempt() {
+    if (this.email.length == 0) {
+      Swal.fire('Erro', 'Preencha o campo e-mail', 'error')
+      return
+    }
+    else if (this.password.length == 0) {
+      Swal.fire('Erro', 'Preencha o campo senha', 'error')
+      return
+    }
+    axios.post(`${process.env.VUE_APP_BASE_URL}/login`, {
+      email: this.email,
+      password: this.password
+    }).then((response) => {
+        console.log(response)
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('email', response.data.user.email);
+        localStorage.setItem('name', response.data.user.name);
+
+        router.push('/create');
+    }).catch((error) => {
+        if (error.response.data.message == "Email not found") {
+          Swal.fire('Erro!', 'E-mail não encontrado', 'error')
+          return
+        }
+        else if (error.response.data.message == "Invalid password") {
+          Swal.fire('Erro!', 'Senha incorreta', 'error')
+          return
+        }
+        Swal.fire('Erro', 'Não foi possível se logar', 'error');
+        console.log(error.response)
+    })
   }
 }
 </script>

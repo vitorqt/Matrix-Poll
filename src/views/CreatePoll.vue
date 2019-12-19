@@ -7,13 +7,13 @@
         <span>Poll</span>
       </h1>
       <label class="mg-top">Poll question</label>
-      <input class="big-input" type="text" placeholder="Type your question here..." />
-      <label class="mg-top">Poll question</label>
-      <input class="small-input" type="text" placeholder="Enter poll option..." />
-      <label class="mg-top">Poll question</label>
-      <input class="small-input" type="text" placeholder="Enter poll option..." />
-      <label class="mg-top">Poll question</label>
-      <input class="small-input" type="text" placeholder="Enter poll option..." />
+      <input class="big-input" type="text" placeholder="Type your question here..." v-model="createPoll.question" />
+      <label class="mg-top">Poll answer</label>
+      <input class="small-input" type="text" placeholder="Enter poll option..." v-model="createPoll.answers.title"/>
+      <label class="mg-top">Poll answer</label>
+      <input class="small-input" type="text" placeholder="Enter poll option..." v-model="createPoll.answers.title"/>
+      <label class="mg-top">Poll answer</label>
+      <input class="small-input" type="text" placeholder="Enter poll option..." v-model="createPoll.answers.title"/>
 
       <div class="container-options">
         <button class="btn-add">Add another option</button>
@@ -25,21 +25,48 @@
       </div>
 
       <router-link to="/vote">
-        <button class="btn-create">Create your poll</button>
+        <button class="btn-create" v-on:click="submit">Create your poll</button>
       </router-link>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { Prop, Vue } from "vue-property-decorator";
 import Navbar from '@/components/Navbar.vue';
+import Component from 'vue-class-component';
 
-export default {
-  name: "main",
-  components: {
-    Navbar
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import router from '../router';
+
+@Component({name: "createpoll", components: { Navbar }})
+
+export default class CratePoll extends Vue {
+  public createPoll = {
+    answers: [{
+      title: "",
+      votes: ""
+    }],
+    multipleAnswers: true,
+    question: ""
   }
-};
+
+
+  submit() {
+    axios.post(`${process.env.VUE_APP_BASE_URL}/polls`, this.createPoll, {
+      headers: {
+        authorization: localStorage.getItem('token')
+      }
+    }).then((response) => {
+        Swal.fire('Sucesso', 'Enquete criada com sucesso', 'success');
+        router.push('/vote');
+    }).catch((error) => {
+        Swal.fire('Erro', 'Não foi possível criar a enquete', 'error');
+        console.log(error.response)
+    })
+  }
+}
 </script>
 
 <style scoped lang="scss">

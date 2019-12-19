@@ -13,6 +13,9 @@
       <li>
         <router-link to="/">About</router-link>
       </li>
+      <li class="loggedUser">
+        Logado: <span class="logged">{{ loggedUser }}</span>
+      </li>
     </nav>
   </header>
 </template>
@@ -22,7 +25,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({ name: 'navbar' })
 export default class Navbar extends Vue {
-
+  public loggedUser = localStorage.getItem('name')
 }
 </script>
 
@@ -36,6 +39,13 @@ header {
   border-width: 1px;
   border-style: solid;
   border-bottom-color: $text-grey;
+
+  .loggedUser {
+    margin-left: 100px!important;
+    color: grey;
+
+    .logged { color: $primary-color; }
+  }
 
   a {
     text-decoration: none;

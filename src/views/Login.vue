@@ -2,8 +2,7 @@
   <div class="content">
     <div class="content__container">
       <h1>
-        Wu
-        <span>nari</span>
+        Wu<span>nari</span>
       </h1>
       <p>
         Crie da maneira mais simples possível suas enquetes em menos de 1 minuto. Use em seu trabalho, em sua escola, em

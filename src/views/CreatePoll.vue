@@ -64,8 +64,9 @@ export default class CreatePoll extends Vue {
         authorization: localStorage.getItem('token')
       }
     }).then((response) => {
-        Swal.fire('Sucesso', 'Enquete criada com sucesso', 'success');
-        router.push('/vote');
+        Swal.fire('Sucesso', 'Enquete criada com sucesso', 'success').then(() => {
+          router.push(`/vote/${response.data.id}`);
+        });
     }).catch((error) => {
         Swal.fire('Erro', 'Não foi possível criar a enquete', 'error');
         console.log(error.response)

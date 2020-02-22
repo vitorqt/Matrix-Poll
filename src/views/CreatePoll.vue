@@ -42,7 +42,7 @@ import router from '../router';
 
 @Component({name: "createpoll", components: { Navbar }})
 
-export default class CratePoll extends Vue {
+export default class CreatePoll extends Vue {
   public createPoll = {
     answers: [{
       title: "",

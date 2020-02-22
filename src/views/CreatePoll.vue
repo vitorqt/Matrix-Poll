@@ -1,16 +1,16 @@
 <template>
   <div class="main">
     <Navbar />
-    <div class="container">
+    <form class="container" @submit="submit">
       <h1>
         Create a
         <span>Poll</span>
       </h1>
       <label class="mg-top">Poll question</label>
-      <input class="big-input" type="text" placeholder="Type your question here..." v-model="createPoll.question" />
+      <input class="big-input" type="text" placeholder="Type your question here..." v-model="createPoll.question" required/>
       <div v-for="answer in createPoll.answers" v-bind:key="answer.id">
         <label class="mg-top">Poll answer</label>
-        <input class="small-input" type="text" placeholder="Enter poll option..." v-model="answer.title"/>
+        <input class="small-input" type="text" placeholder="Enter poll option..." v-model="answer.title" required/>
       </div>
 
       <div class="container-options">
@@ -22,10 +22,8 @@
         </div>
       </div>
 
-      <router-link to="/vote">
-        <button class="btn-create" v-on:click="submit">Create your poll</button>
-      </router-link>
-    </div>
+      <button class="btn-create" type="submit">Create your poll</button>
+    </form>
   </div>
 </template>
 

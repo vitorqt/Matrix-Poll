@@ -2,22 +2,12 @@
   <div class="vote">
     <Navbar />
     <button class="container">
-      <h1>Qual sua banda favorita ?</h1>
-      <span>Asked by Wuzi 24 minutes ago</span>
+      <h1>{{ poll.question }} ?</h1>
+      <span>Asked {{ poll.createdAt }}</span>
 
-      <div class="answer mg-top">
+      <div class="answer mg-top" v-for="answer in poll.answers" v-bind:key="answer.id">
         <input id="radio1" type="radio" />
-        <label for="radio1">Coldplay</label>
-      </div>
-
-      <div class="answer mg-top">
-        <input id="radio2" type="radio" />
-        <label for="radio2">Radiohead</label>
-      </div>
-
-      <div class="answer mg-top">
-        <input id="radio3" type="radio" />
-        <label for="radio3">Jhon Mayer</label>
+        <label for="radio1">{{ answer.title }}</label>
       </div>
 
       <router-link to="/result">
@@ -29,14 +19,31 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import Navbar from '@/components/Navbar.vue';
+import Navbar from "@/components/Navbar.vue";
 
-export default {
-  name: "navbar",
-  components: {
-    Navbar
+import axios from "axios";
+import Swal from "sweetalert2";
+import router from "../router";
+
+@Component({ name: "vote", components: { Navbar } })
+export default class Vote extends Vue {
+  public poll = {};
+
+  public mounted() {
+    axios
+      .get(`${process.env.VUE_APP_BASE_URL}/polls/${this.$route.params.id}`, {
+        headers: {
+          authorization: localStorage.getItem("token")
+        }
+      })
+      .then(response => {
+        this.poll = response.data;
+      })
+      .catch(error => {
+        Swal.fire("Erro", "Não foi possível carregar a enquete", "error");
+      });
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

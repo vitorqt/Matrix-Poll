@@ -14,7 +14,7 @@
       </div>
 
       <div class="container-options">
-        <button class="btn-add" @click="addOption">Add another option</button>
+        <button class="btn-add" @click="addOption" type="button">Add another option</button>
 
         <div class="options">
           <p>Improve spam prevention</p>

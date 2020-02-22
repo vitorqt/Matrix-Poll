@@ -3,7 +3,7 @@
     <Navbar />
     <button class="container">
       <h1>{{ poll.question }} ?</h1>
-      <span>Asked {{ poll.createdAt }}</span>
+      <span>Asked {{ formatDate(poll.createdAt) }}</span>
 
       <div class="answer mg-top" v-for="answer in poll.answers" v-bind:key="answer.id">
         <input id="radio1" type="radio" />
@@ -22,12 +22,17 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import Navbar from "@/components/Navbar.vue";
 
 import axios from "axios";
+import moment from "moment";
 import Swal from "sweetalert2";
 import router from "../router";
 
 @Component({ name: "vote", components: { Navbar } })
 export default class Vote extends Vue {
   public poll = {};
+
+  public formatDate(date: Date) {    
+    return moment(date).fromNow();
+  }
 
   public mounted() {
     axios

@@ -8,15 +8,13 @@
       </h1>
       <label class="mg-top">Poll question</label>
       <input class="big-input" type="text" placeholder="Type your question here..." v-model="createPoll.question" />
-      <label class="mg-top">Poll answer</label>
-      <input class="small-input" type="text" placeholder="Enter poll option..." v-model="createPoll.answers.title"/>
-      <label class="mg-top">Poll answer</label>
-      <input class="small-input" type="text" placeholder="Enter poll option..." v-model="createPoll.answers.title"/>
-      <label class="mg-top">Poll answer</label>
-      <input class="small-input" type="text" placeholder="Enter poll option..." v-model="createPoll.answers.title"/>
+      <div v-for="answer in createPoll.answers" v-bind:key="answer.id">
+        <label class="mg-top">Poll answer</label>
+        <input class="small-input" type="text" placeholder="Enter poll option..." v-model="answer.title"/>
+      </div>
 
       <div class="container-options">
-        <button class="btn-add">Add another option</button>
+        <button class="btn-add" @click="addOption">Add another option</button>
 
         <div class="options">
           <p>Improve spam prevention</p>
@@ -45,6 +43,7 @@ import router from '../router';
 export default class CreatePoll extends Vue {
   public createPoll = {
     answers: [{
+      id: 0,
       title: "",
       votes: ""
     }],
@@ -52,6 +51,14 @@ export default class CreatePoll extends Vue {
     question: ""
   }
 
+  private addOption() {
+    const answer = {
+      id: this.createPoll.answers.length,
+      title: "",
+      votes: ""
+    };
+    this.createPoll.answers.push(answer);
+  }
 
   submit() {
     axios.post(`${process.env.VUE_APP_BASE_URL}/polls`, this.createPoll, {

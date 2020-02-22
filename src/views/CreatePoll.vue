@@ -43,7 +43,7 @@ export default class CreatePoll extends Vue {
     answers: [{
       id: 0,
       title: "",
-      votes: ""
+      votes: 0
     }],
     multipleAnswers: true,
     question: ""
@@ -53,7 +53,7 @@ export default class CreatePoll extends Vue {
     const answer = {
       id: this.createPoll.answers.length,
       title: "",
-      votes: ""
+      votes: 0
     };
     this.createPoll.answers.push(answer);
   }
